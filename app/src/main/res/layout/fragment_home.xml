@@ -3,124 +3,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_book"
-    tools:context=".HomeFragment"
+    android:orientation="vertical"
     android:paddingTop="20dp"
 
-    android:orientation="vertical">
+    tools:context=".HomeFragment">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/al"
-                android:layout_marginRight="20dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@drawable/package_view_left"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="80dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/package_view_left"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
                 <TextView
+                    android:id="@+id/Al"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="උසස් පෙළ විභාගය"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:text="@string/Al"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="மேம்பட்ட நிலை தேர்வு"
-                    android:textSize="18sp"
                     android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Advanced Level Exam"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ol"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@drawable/package_view_right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/package_view_right"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
                 <TextView
+                    android:id="@+id/Ol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="සාමාන්‍ය පෙළ විභාගය"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:text="@string/oL"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="சாதாரண நிலை தேர்வு"
-                    android:textSize="18sp"
                     android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ordinary Level Exam"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/grade5"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@drawable/package_view_left"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/package_view_left"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
                 <TextView
+                    android:id="@+id/Grade5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5 ශ්‍රේණියේ ශිෂ්‍යත්ව විභාගය"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:text="@string/Grade_5"
                     android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="தரம் 5 உதவித்தொகை தேர்வு"
-                    android:textSize="18sp"
                     android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Grade 5 Scholarship Exam"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:textAlignment="center"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

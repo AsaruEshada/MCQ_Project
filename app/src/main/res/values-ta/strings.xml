@@ -7,4 +7,21 @@
     <string name="Al">மேம்பட்ட நிலை தேர்வு</string>
     <string name="oL">சாதாரண நிலை தேர்வு</string>
     <string name="Grade_5">தரம் 5 உதவித்தொகை தேர்வு</string>
+    <string name="ExamType">நீங்கள் விரும்பும் பொருள் மற்றும் ஆண்டைத் தேர்வுசெய்க</string>
+    <string name="Path">பிரிவு</string>
+    <string name="Subject">பொருள்</string>
+    <string name="Year">ஆண்டு</string>
+    <string-array name="Path_array">
+        <item>அறிவியல் துறை</item>
+        <item>மொழி பிரிவு</item>
+        <item>கலை பிரிவு</item>
+        <item>வணிக பிரிவு</item>
+    </string-array>
+    <string-array name="Math_subject">
+        <item>Bio</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
+        <item>ITC</item>
+        <item>விவசாய வேளாண்மை</item>
+    </string-array>
 </resources>

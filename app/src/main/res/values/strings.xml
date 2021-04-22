@@ -1,10 +1,42 @@
 <resources>
     <string name="app_name">MCQ</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_spaces">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="language_selected_button">Apply</string>
     <string name="Al">Advanced Level Exam</string>
     <string name="oL">Ordinary Level Exam</string>
     <string name="Grade_5">Grade 5 Scholarship Exam</string>
+    <string name="ExamType">Choose the subject and year you want</string>
+    <string name="Path">Path</string>
+    <string name="Subject">Subject</string>
+    <string name="Year">Year</string>
+    <string-array name="Path_array">
+        <item>Math &amp; Bio</item>
+        <item>Language</item>
+        <item>Art</item>
+        <item>Commerce</item>
+    </string-array>
+    <string-array name="Math_subject">
+        <item>Bio</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
+        <item>ITC</item>
+        <item>Agriculture</item>
+    </string-array>
+    <string-array name="year">
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
+        <item>2007</item>
+        <item>2008</item>
+        <item>2009</item>
+        <item>2010</item>
+        <item>2011</item>
+
+    </string-array>
 </resources>

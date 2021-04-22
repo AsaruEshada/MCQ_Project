@@ -30,7 +30,7 @@ public RadioGroup radioGroup;
         go=findViewById(R.id.go);
         go.setOnClickListener(v -> {
             if (radioGroup.getCheckedRadioButtonId()== -1){
-
+                 Toast.makeText(this,"Please Select the Language",Toast.LENGTH_LONG).show();
             }else{
                 SharedPreferences settings = getApplicationContext().getSharedPreferences("language", 0);
                 SharedPreferences.Editor editor = settings.edit();

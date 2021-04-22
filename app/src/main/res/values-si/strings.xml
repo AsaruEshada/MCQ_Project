@@ -7,4 +7,21 @@
     <string name="Al">උසස් පෙළ විභාගය</string>
     <string name="oL">සාමාන්‍ය පෙළ විභාගය</string>
     <string name="Grade_5">5 ශ්‍රේණියේ ශිෂ්‍යත්ව විභාගය</string>
+    <string name="ExamType">ඔබට අවශ්‍ය විෂය සහ වර්ෂය තෝරාගන්න</string>
+    <string name="Path">අංශය</string>
+    <string name="Subject">විෂය</string>
+    <string name="Year">වර්ෂය</string>
+    <string-array name="Path_array">
+        <item>විද්‍යා අංශය</item>
+        <item>භාෂා අංශය</item>
+        <item>කලා අංශය</item>
+        <item>වාණිජ අංශය</item>
+    </string-array>
+    <string-array name="Math_subject">
+        <item>Bio</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
+        <item>ITC</item>
+        <item>කෘෂිකර්මය</item>
+    </string-array>
 </resources>

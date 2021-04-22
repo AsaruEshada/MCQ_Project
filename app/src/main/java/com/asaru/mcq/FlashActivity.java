@@ -15,8 +15,8 @@ public class FlashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flash);
         Context context=this;
         int splash = 4500;
-        SharedPreferences settings = getApplicationContext().getSharedPreferences("language", 0);
-        String lang=settings.getString("Language","");
+        SharedPreferences language = getApplicationContext().getSharedPreferences("language", 0);
+        String lang=language.getString("Language","");
         new Handler().postDelayed(() -> {
             if (lang.isEmpty()){
             Intent i =new Intent(context,SelectLanguageActivity.class);
