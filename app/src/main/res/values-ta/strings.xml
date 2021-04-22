@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MCQ</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_spaces">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="language_selected_button">முன்னோக்கி</string>
+    <string name="Al">மேம்பட்ட நிலை தேர்வு</string>
+    <string name="oL">சாதாரண நிலை தேர்வு</string>
+    <string name="Grade_5">தரம் 5 உதவித்தொகை தேர்வு</string>
+</resources>

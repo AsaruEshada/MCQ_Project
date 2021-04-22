@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MCQ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_spaces">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="language_selected_button">Apply</string>
+    <string name="Al">Advanced Level Exam</string>
+    <string name="oL">Ordinary Level Exam</string>
+    <string name="Grade_5">Grade 5 Scholarship Exam</string>
+</resources>

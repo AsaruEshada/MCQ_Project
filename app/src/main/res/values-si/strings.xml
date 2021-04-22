@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MCQ</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_spaces">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="language_selected_button">ඉදිරියට</string>
+    <string name="Al">උසස් පෙළ විභාගය</string>
+    <string name="oL">සාමාන්‍ය පෙළ විභාගය</string>
+    <string name="Grade_5">5 ශ්‍රේණියේ ශිෂ්‍යත්ව විභාගය</string>
+</resources>
