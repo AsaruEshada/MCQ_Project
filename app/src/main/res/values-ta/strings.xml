@@ -11,17 +11,58 @@
     <string name="Path">பிரிவு</string>
     <string name="Subject">பொருள்</string>
     <string name="Year">ஆண்டு</string>
+    <string name="GIT">பொது தகவல் தொழில்நுட்பம்</string>
+    <string name="common_test">பொது சோதனை</string>
     <string-array name="Path_array">
         <item>அறிவியல் துறை</item>
         <item>மொழி பிரிவு</item>
         <item>கலை பிரிவு</item>
         <item>வணிக பிரிவு</item>
+        <item>தொழில்நுட்ப பிரிவு</item>
     </string-array>
     <string-array name="Math_subject">
-        <item>Bio</item>
+        <item>உயிரியல்</item>
+        <item>வேதியியல்</item>
+        <item>இயற்பியல்</item>
+        <item>ITC</item>
+        <item>விவசாய வேளாண்மை</item>
+    </string-array>
+    <string-array name="Art_subject">
+        <item>தமிழ்</item>
+        <item>புத்த நாகரிகம்</item>
+        <item>இந்து நாகரிகம்</item>
+        <item>கிறிஸ்தவ நாகரிகம்</item>
+        <item>ஐரோப்பாவின் வரலாறு</item>
+        <item>இந்தியாவின் வரலாறு</item>
+        <item>தர்க்கம் மற்றும் அறிவியல் முறை</item>
+        <item>நிலவியல்</item>
+        <item>அரசியல் அறிவியல்</item>
+        <item>மனை பொருளியல்</item>
+    </string-array>
+    <string-array name="Language_subject">
+        <item>விவசாய வேளாண்மை</item>
         <item>Chemistry</item>
         <item>Physics</item>
         <item>ITC</item>
+        <item>Agriculture</item>
+    </string-array>
+    <string-array name="Commerce_subject">
+        <item>Bio</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
         <item>விவசாய வேளாண்மை</item>
+        <item>Agriculture</item>
+    </string-array>
+    <string-array name="english_medium">
+        <item>Biology</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Agriculture</item>
+        <item>Accountancy</item>
+        <item>Business Studies</item>
+        <item>Economics</item>
+        <item>Basics in Political Science</item>
+        <item>Geography</item>
+
     </string-array>
 </resources>

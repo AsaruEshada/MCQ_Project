@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_book"
-    tools:context=".SelectPaperActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SelectPaperActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -43,118 +43,185 @@
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
-        android:scrollbars="none"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
-                android:background="@drawable/white_border"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:gravity="center_horizontal"
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/white_border"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:text="@string/ExamType"
-                android:textSize="22sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
             <LinearLayout
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:weightSum="3"
-                android:gravity="center_vertical">
+                android:weightSum="3">
+
                 <TextView
                     android:id="@+id/path"
-                    android:gravity="start"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:text="@string/Path"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:gravity="start"
+                    android:text="@string/Path"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
                 <Spinner
+                    android:id="@+id/Path"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/spinner_border"
                     android:padding="5dp"
                     android:popupBackground="#FF5722"
-                    android:background="@drawable/spinner_border"
-                    android:id="@+id/Path"
-                    android:textAlignment="center"
                     android:scrollbars="none"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:weightSum="4"
-                android:gravity="center_vertical">
+                android:weightSum="3">
+
                 <TextView
                     android:id="@+id/subject"
-                    android:gravity="start"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:text="@string/Subject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:gravity="start"
+                    android:text="@string/Subject"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
                 <Spinner
+                    android:id="@+id/Subject"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/spinner_border"
                     android:padding="5dp"
                     android:popupBackground="#FF5722"
-                    android:background="@drawable/spinner_border"
-                    android:id="@+id/Subject"
-                    android:textAlignment="center"
                     android:scrollbars="none"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:weightSum="3"
-                android:gravity="center_vertical">
+                android:weightSum="3">
+
                 <TextView
                     android:id="@+id/year"
-                    android:gravity="start"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:text="@string/Year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:gravity="start"
+                    android:text="@string/Year"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
                 <Spinner
+                    android:id="@+id/Year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/spinner_border"
                     android:padding="5dp"
                     android:popupBackground="#FF5722"
-                    android:background="@drawable/spinner_border"
-                    android:id="@+id/Year"
-                    android:textAlignment="center"
                     android:scrollbars="none"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
+                    android:textAlignment="center" />
             </LinearLayout>
+
             <Button
-                android:layout_marginTop="50dp"
+                android:id="@+id/apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/language_selected_button"
-                android:textSize="20sp"
-                android:textAllCaps="false"
                 android:layout_gravity="center"
-                android:backgroundTint="#FF5722"/>
+                android:layout_marginTop="50dp"
+                android:backgroundTint="#FF5722"
+                android:text="@string/language_selected_button"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
+            <LinearLayout
+                android:id="@+id/al"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/package_view_left"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/git"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/GIT"
+                    android:textAlignment="center"
+                    android:textColor="#C3BEBE"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ol"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/package_view_right"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/common"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common_test"
+                    android:textAlignment="center"
+                    android:textColor="#C3BEBE"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
         </LinearLayout>
     </ScrollView>

@@ -11,17 +11,60 @@
     <string name="Path">අංශය</string>
     <string name="Subject">විෂය</string>
     <string name="Year">වර්ෂය</string>
+    <string name="GIT">සාමාන්‍ය තොරතුරු තාක්ෂණය</string>
+    <string name="common_test">සාමාන්‍ය පරීක්ෂණය</string>
     <string-array name="Path_array">
         <item>විද්‍යා අංශය</item>
         <item>භාෂා අංශය</item>
         <item>කලා අංශය</item>
         <item>වාණිජ අංශය</item>
+        <item>තාක්ෂණ අංශය</item>
     </string-array>
     <string-array name="Math_subject">
-        <item>Bio</item>
-        <item>Chemistry</item>
-        <item>Physics</item>
+        <item>ජීව විද්‍යාව</item>
+        <item>රසායන විද්‍යාව</item>
+        <item>භෞතික විද්‍යාව</item>
         <item>ITC</item>
         <item>කෘෂිකර්මය</item>
     </string-array>
+    <string-array name="Art_subject">
+        <item>සිංහල</item>
+        <item>බෞද්ධ ශිෂ්ටාචාරය</item>
+        <item>හින්දු ශිෂ්ටාචාරය</item>
+        <item>ක්‍රිස්තියානි ශිෂ්ටාචාරය</item>
+        <item>යුරෝපා ඉතිහාසය</item>
+        <item>ඉන්දියා ඉතිහාසය</item>
+        <item>තර්ක ශාස්ත්‍රය</item>
+        <item>භූගෝල විද්‍යාව</item>
+        <item>දේශපාලන විද්‍යාව</item>
+        <item>ගෘහ ආර්ථික විද්‍යාව</item>
+
+    </string-array>
+    <string-array name="Language_subject">
+        <item>Bio</item>
+        <item>කෘෂිකර්මය</item>
+        <item>Physics</item>
+        <item>ITC</item>
+        <item>Agriculture</item>
+    </string-array>
+    <string-array name="Commerce_subject">
+        <item>Bio</item>
+        <item>Chemistry</item>
+        <item>Physics</item>
+        <item>කෘෂිකර්මය</item>
+        <item>Agriculture</item>
+    </string-array>
+    <string-array name="english_medium">
+        <item>Biology</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+        <item>Agriculture</item>
+        <item>Accountancy</item>
+        <item>Business Studies</item>
+        <item>Economics</item>
+        <item>Basics in Political Science</item>
+        <item>Geography</item>
+
+    </string-array>
+
 </resources>
