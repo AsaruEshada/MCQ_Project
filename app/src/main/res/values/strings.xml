@@ -13,6 +13,12 @@
     <string name="Year">Year</string>
     <string name="GIT">General Information Technology</string>
     <string name="common_test">General Test</string>
+    <string name="chosen_subject">Is the subject you have chosen</string>
+    <string name="chosen_year">This is the year you choose</string>
+    <string name="exam_des">When you are ready to do the question paper, click on the Next button</string>
+    <string name="next_step">Go</string>
+    <string name="back_step">Back</string>
+    <string name="exit">Exit</string>
     <string-array name="Path_array">
         <item>Math &amp; Bio</item>
         <item>Language</item>

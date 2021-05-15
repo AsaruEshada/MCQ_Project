@@ -8,22 +8,69 @@
     android:orientation="vertical"
     android:background="@color/purple_700"
     android:gravity="center">
-    <TextView
-        android:id="@+id/description"
+    <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="@drawable/white_border"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text="@string/ExamType"
-        android:textColor="@color/white"
-        android:textSize="22sp" />
+        >
+        <TextView
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/chosen_subject"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/chosen_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+
+            android:textColor="#E6DCDC"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/chosen_year"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/chosen_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="#E6DCDC"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/exam_des"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/next"
         android:layout_marginTop="25dp"
         android:textColor="@color/white"
-        android:text="Next >>"
+        android:text="@string/next_step"
         android:textAllCaps="false"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -34,7 +81,7 @@
         android:id="@+id/back"
         android:layout_marginTop="25dp"
         android:textColor="@color/white"
-        android:text="<< Back"
+        android:text="@string/back_step"
         android:textAllCaps="false"
         android:textSize="20dp"
         android:textStyle="bold"

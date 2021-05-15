@@ -90,6 +90,7 @@ public class SelectPaperActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), IntroductionActivity.class);
             i.putExtra("subject", selectedSubject);
             i.putExtra("year", yearSpinner.getSelectedItem().toString());
+            startActivity(i);
         });
     }
 

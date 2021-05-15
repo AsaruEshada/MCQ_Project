@@ -13,6 +13,12 @@
     <string name="Year">වර්ෂය</string>
     <string name="GIT">සාමාන්‍ය තොරතුරු තාක්ෂණය</string>
     <string name="common_test">සාමාන්‍ය පරීක්ෂණය</string>
+    <string name="chosen_subject">ඔබ තෝරාගෙන ඇති විෂය වනුයේ</string>
+    <string name="chosen_year">ඔබ තෝරාගෙන ඇති වර්ශය වනුයේ</string>
+    <string name="exam_des">ඔබ ප්‍රශ්න පත්‍රය කිරීමට සූදානම් නම්,ඉදිරියට යන්න</string>
+    <string name="next_step">ඉදිරියට</string>
+    <string name="back_step">ඉවත්වන්න </string>
+    <string name="exit">Exit</string>
     <string-array name="Path_array">
         <item>විද්‍යා අංශය</item>
         <item>භාෂා අංශය</item>

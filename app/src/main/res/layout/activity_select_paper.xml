@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?actionBarSize"
         android:background="@android:color/transparent"
         android:backgroundTint="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,12 +57,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:padding="8dp"
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_border"
                 android:gravity="center_horizontal"
-                android:paddingTop="10dp"
+               
                 android:paddingBottom="10dp"
                 android:text="@string/ExamType"
                 android:textColor="@color/white"
