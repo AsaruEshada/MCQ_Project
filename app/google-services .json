@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51272482068",
+    "project_id": "mini-project-mcq",
+    "storage_bucket": "mini-project-mcq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51272482068:android:b65750c34e53cf86071601",
+        "android_client_info": {
+          "package_name": "com.asaru.mcq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51272482068-d8isi1m7nvlt9b3rie72d4vbocoqlkir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvsjXm8WIyiavpjFrC-nUpqF8_mRuFtXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51272482068-d8isi1m7nvlt9b3rie72d4vbocoqlkir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
