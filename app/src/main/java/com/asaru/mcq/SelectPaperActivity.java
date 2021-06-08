@@ -47,7 +47,7 @@ public class SelectPaperActivity extends AppCompatActivity {
         git = findViewById(R.id.git);
         common = findViewById(R.id.common);
         apply = findViewById(R.id.apply);
-        back.setOnClickListener(v -> onBackPressed());
+        back.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),MainActivity.class)));
 
 
         setLanguage();

@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MCQ">
-        <activity android:name=".ExamActivity"></activity>
+        <activity android:name=".ExamFinishActivity"></activity>
+        <activity android:name=".ExamActivity" />
         <activity android:name=".IntroductionActivity" />
         <activity android:name=".SelectPaperActivity" />
         <activity android:name=".SelectLanguageActivity" />

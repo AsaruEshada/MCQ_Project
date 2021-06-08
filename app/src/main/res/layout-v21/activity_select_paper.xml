@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/GIT"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#C3BEBE"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/common_test"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="#C3BEBE"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

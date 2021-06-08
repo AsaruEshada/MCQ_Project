@@ -92,7 +92,7 @@
                 android:layout_weight="1"
                 android:text="Question No"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -102,7 +102,7 @@
                 android:layout_weight="1"
                 android:text="Do Later"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -112,7 +112,7 @@
                 android:layout_weight="1"
                 android:text="Done"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
@@ -129,7 +129,7 @@
                 android:layout_weight="1"
                 android:text="21"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -140,7 +140,7 @@
                 android:layout_weight="1"
                 android:text="05"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:layout_weight="1"
                 android:text="15/50"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
@@ -276,7 +276,6 @@
                         android:weightSum="3">
 
                         <Button
-                            android:visibility="invisible"
                             android:id="@+id/back"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -299,7 +298,6 @@
                             android:textSize="18sp" />
 
                         <Button
-
                             android:id="@+id/next"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
