@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,32 +29,44 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ExamActivity extends AppCompatActivity {
-    String selectedYear, selectedSubject, lang, medium, correctAnswer;
-    TextView subject, year, exit, question, time, questionNumber;
+
+    String selectedYear;
+    String selectedSubject;
+    String lang;
+    String medium;
+    String correctAnswer;
+    String questionUrl;
+    String totalQuestionNo;
+    TextView subject, year, exit, questionView, time, questionNumber, doneQuestions;
     FirebaseDatabase database;
     DatabaseReference myRef, ref;
     Button next, back, doLater, finish;
     Integer questionNo = 1;
-    Integer totalQuestionNo = 0, doLaterTotal = 0, answerTotalQuestion = 0, correctAnswerNo = 0, wrongAnswerNo = 0;
+    Integer realQuestionNo = 1;
+    Integer doLaterTotal = 0, answerTotalQuestion = 0, correctAnswerNo = 0, wrongAnswerNo = 0, doLaterEqual = 0;
     CharSequence userAnswer;
     RadioGroup radioGroup;
-    Integer totalQuestions,moreTime;
+    Integer totalQuestions, moreTime;
     private CountDownTimer countDownTimer;
     private long durationMillisecond = 600000 * 12;
     private boolean timerRunning;
+    private doLater doLaterQuestion;
     ArrayList<Integer> doLaterQuestions = new ArrayList<>();
     ArrayList<Integer> correctQuestionNo = new ArrayList<>();
-    ArrayList<Integer> wrongQuestionNo = new ArrayList<>();
+    ArrayList<doLater> doLaterArray = new ArrayList<>();
+    ArrayList<wrongAnswer> wrongQuestions = new ArrayList<>();
+    ArrayList<correctAnswer> correctQuestions = new ArrayList<>();
 
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_exam);
         subject = findViewById(R.id.subject);
         year = findViewById(R.id.year);
         exit = findViewById(R.id.exit);
-        question = findViewById(R.id.question);
+        questionView = findViewById(R.id.question);
         selectedYear = getIntent().getStringExtra("year");
         selectedSubject = getIntent().getStringExtra("subject");
         subject.setText(selectedSubject);
@@ -65,6 +78,7 @@ public class ExamActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         time = findViewById(R.id.time);
         questionNumber = findViewById(R.id.questionNo);
+        doneQuestions = findViewById(R.id.doneQuestion);
 
         exit.setOnClickListener(v ->
         {
@@ -75,7 +89,7 @@ public class ExamActivity extends AppCompatActivity {
         SharedPreferences language = getApplicationContext().getSharedPreferences("language", 0);
         lang = language.getString("Language", "");
 
-        updateQuestion();
+        updateQuestion(questionNo);
         checkQuestions();
         //countdown timer
         startTimer();
@@ -84,46 +98,60 @@ public class ExamActivity extends AppCompatActivity {
         next.setOnClickListener(v -> {
 
             if (timerRunning) {
+
                 if (questionNo.equals(totalQuestions)) {
+
                     if (doLaterTotal.equals(0)) {
 
                         countDownTimer.cancel();
 
-                        Intent i=new Intent(getApplicationContext(),ExamFinishActivity.class);
-                        i.putExtra("time",moreTime);
-                        i.putExtra("wrong",wrongAnswerNo);
-                        i.putExtra("correct",correctAnswerNo);
-                        i.putExtra("wrongAnswer",wrongQuestionNo);
-                        i.putExtra("correctAnswer",correctQuestionNo);
+                        Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                        i.putExtra("time", moreTime);
+                        // i.putExtra("wrong", wrongAnswerNo);
+                        //i.putExtra("correct", correctAnswerNo);
+                        //i.putExtra("wrongAnswer", wrongQuestionNo);
+                        // i.putExtra("correctAnswer", correctQuestionNo);
+                        // i.putExtra("correctQuestionsUrl", correctQuestionsUrl);
+                        // i.putExtra("wrongQuestionsUrl", wrongQuestionsUrl);
+                        i.putParcelableArrayListExtra("correctAnswerArray", correctQuestions);
+                        i.putParcelableArrayListExtra("wrongAnswerArray", wrongQuestions);
 
                         startActivity(i);
                         finish();
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "do later", Toast.LENGTH_SHORT).show();
+                        doLater.setVisibility(View.INVISIBLE);
+                        if (doLaterTotal == 0) {
+                            countDownTimer.cancel();
+
+                            Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                            i.putExtra("time", moreTime);
+                            // i.putExtra("wrong", wrongAnswerNo);
+                            //i.putExtra("correct", correctAnswerNo);
+                            //i.putExtra("wrongAnswer", wrongQuestionNo);
+                            // i.putExtra("correctAnswer", correctQuestionNo);
+                            // i.putExtra("correctQuestionsUrl", correctQuestionsUrl);
+                            // i.putExtra("wrongQuestionsUrl", wrongQuestionsUrl);
+                            i.putParcelableArrayListExtra("correctAnswerArray", correctQuestions);
+                            i.putParcelableArrayListExtra("wrongAnswerArray", wrongQuestions);
+
+                            startActivity(i);
+                            finish();
+                        } else {
+                            realQuestionNo = doLaterQuestions.get(doLaterTotal - 1);
+                            Log.d("Do later", doLaterQuestions.get(doLaterTotal - 1).toString());
+                            doLaterEqual++;
+                            updateQuestion(doLaterQuestions.get(doLaterTotal - 1));
+                            checkAnswerDoLater(realQuestionNo);
+
+
+                        }
+
+
                     }
 
                 } else {
-                    if (radioGroup.getCheckedRadioButtonId() == -1) {
-                        Toast.makeText(getApplicationContext(), "Please select one answer", Toast.LENGTH_LONG).show();
-                    } else {
-                        int radioId = radioGroup.getCheckedRadioButtonId();
-                        RadioButton radioButton = findViewById(radioId);
-                        userAnswer = radioButton.getText();
-                        Toast.makeText(getApplicationContext(), userAnswer, Toast.LENGTH_SHORT).show();
-                        if (userAnswer.equals(correctAnswer)) {
-                            correctQuestionNo.add(correctAnswerNo, questionNo);
-                            correctAnswerNo++;
-                        } else {
-                            wrongQuestionNo.add(wrongAnswerNo, questionNo);
-                            wrongAnswerNo++;
-                        }
-                        questionNo++;
-                        answerTotalQuestion++;
-                        radioGroup.clearCheck();
-                        updateQuestion();
-
-                    }
+                    checkAnswer();
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "Your time is over", Toast.LENGTH_LONG).show();
@@ -131,72 +159,135 @@ public class ExamActivity extends AppCompatActivity {
         });
         doLater.setOnClickListener(v -> {
             doLaterQuestions.add(doLaterTotal, questionNo);
-            questionNo++;
+            //doLaterQuestion = new doLater(questionNo, correctAnswer, questionUrl);
+            //doLaterArray.add(doLaterTotal, doLaterQuestion);
             doLaterTotal++;
-            updateQuestion();
+            questionNo++;
+            realQuestionNo++;
+            updateQuestion(questionNo);
         });
         back.setOnClickListener(v -> {
-            if (correctAnswerNo > 0) {
-                if (correctQuestionNo.get(correctAnswerNo - 1).equals(questionNo - 1)) {
-                    correctQuestionNo.remove(correctAnswerNo--);
-                    correctAnswerNo = correctAnswerNo - 1;
+            if (questionNo.equals(totalQuestions)) {
+                if (doLaterEqual > 0) {
+                    if (doLaterTotal > 0) {
+                        if (correctQuestions.size() > 0) {
+                            if (correctQuestions.get(correctAnswerNo - 1).questionNo.equals(doLaterQuestions.get(doLaterTotal))) {
+                                correctQuestions.remove(correctAnswerNo - 1);
+                                correctAnswerNo = correctAnswerNo - 1;
+                            } else {
+                                if (wrongQuestions.get(wrongAnswerNo - 1).questionNo.equals(doLaterQuestions.get(doLaterTotal))) {
+
+                                    wrongQuestions.remove(wrongAnswerNo - 1);
+                                    wrongAnswerNo = wrongAnswerNo - 1;
+
+                                }
+                            }
+                            updateQuestion(doLaterQuestions.get(doLaterTotal));
+                        }
+                    }else {Toast.makeText(getApplicationContext(), "You cant go back ", Toast.LENGTH_LONG).show();}
+                } else {
+                    Toast.makeText(getApplicationContext(), "You cant go back ", Toast.LENGTH_LONG).show();
                 }
-            }
-            if (wrongAnswerNo > 0) {
-                if (wrongQuestionNo.get(wrongAnswerNo - 1).equals(questionNo - 1)) {
-                    Log.d("answer", wrongQuestionNo.get(wrongAnswerNo - 1).toString());
-                    wrongQuestionNo.remove(wrongAnswerNo - 1);
-                    wrongAnswerNo = wrongAnswerNo - 1;
+
+
+            } else {
+                if (correctQuestions.size() > 0) {
+                    if (correctQuestions.get(correctAnswerNo - 1).questionNo.equals(questionNo - 1)) {
+                        correctQuestions.remove(correctAnswerNo - 1);
+                        correctAnswerNo = correctAnswerNo - 1;
+                    }
                 }
-            }
-            if (doLaterTotal > 0) {
-                if (doLaterQuestions.get(doLaterTotal - 1).equals(questionNo - 1)) {
-                    doLaterQuestions.remove(doLaterTotal - 1);
-                    doLaterTotal = doLaterTotal - 1;
+                if (wrongQuestions.size() > 0) {
+                    if (wrongQuestions.get(wrongAnswerNo - 1).questionNo.equals(questionNo - 1)) {
+
+                        wrongQuestions.remove(wrongAnswerNo - 1);
+                        wrongAnswerNo = wrongAnswerNo - 1;
+                    }
                 }
+                if (doLaterTotal > 0) {
+                    if (doLaterQuestions.get(doLaterTotal - 1).equals(questionNo - 1)) {
+                        doLaterQuestions.remove(doLaterTotal - 1);
+                        doLaterTotal = doLaterTotal - 1;
+                    }
+                }
+                questionNo = questionNo - 1;
+
+                updateQuestion(questionNo);
             }
 
 
-            questionNo = questionNo - 1;
-            updateQuestion();
         });
         finish.setOnClickListener(v -> {
-            if (questionNo == totalQuestions){
+            if (questionNo.equals(totalQuestions)) {
 
-            }if (questionNo<2){
+                Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                /*i.putExtra("time", moreTime);
+                i.putExtra("wrong", wrongAnswerNo);
+                i.putExtra("correct", correctAnswerNo);
+                i.putExtra("wrongAnswer", wrongQuestionNo);
+                i.putExtra("correctAnswer", correctQuestionNo);*/
+                i.putExtra("correctAnswerArray", (Parcelable) correctQuestions);
+                i.putExtra("wrongAnswerArray", (Parcelable) wrongQuestions);
+
+
+                startActivity(i);
+                finish();
+
+            }
+            if (questionNo < 2) {
                 startActivity(new Intent(getApplicationContext(), SelectPaperActivity.class));
                 finish();
-            }if (questionNo>2){
+            }
+            if (questionNo > 2) {
+                Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                /*i.putExtra("time", moreTime);
+                i.putExtra("wrong", wrongAnswerNo);
+                i.putExtra("correct", correctAnswerNo);
+                i.putExtra("wrongAnswer", wrongQuestionNo);
+                i.putExtra("correctAnswer", correctQuestionNo);*/
+                i.putExtra("correctAnswerArray", (Parcelable) correctQuestions);
+                i.putExtra("wrongAnswerArray", (Parcelable) wrongQuestions);
+
+
+                startActivity(i);
+                finish();
 
             }
         });
     }
 
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
-    private void updateQuestion() {
+    private void updateQuestion(int question) {
         if (questionNo > 1) {
             back.setVisibility(View.VISIBLE);
         } else {
             back.setVisibility(View.INVISIBLE);
         }
-        if (questionNo < 10) {
-            questionNumber.setText("0" + questionNo);
+        if (realQuestionNo < 10) {
+            questionNumber.setText("0" + realQuestionNo);
         } else {
-            questionNumber.setText(questionNo);
+            questionNumber.setText(realQuestionNo);
         }
-        if (questionNo == totalQuestions) {
+        if (questionNo.equals(totalQuestions)) {
+
             doLater.setVisibility(View.INVISIBLE);
             doLater.setClickable(false);
 
         }
 
-        databaseRef();
+
+        databaseRef(question);
         myRef.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("call", "calling");
                 Log.d("Question", String.valueOf(snapshot.getChildrenCount()));
-                question.setText(Objects.requireNonNull(snapshot.child("q").getValue()).toString());
+                totalQuestionNo = String.valueOf(snapshot.getChildrenCount());
+                questionView.setText(Objects.requireNonNull(snapshot.child("q").getValue()).toString());
+                Log.d("URL", Objects.requireNonNull(snapshot.child("q").getValue()).toString());
+                questionUrl = Objects.requireNonNull(snapshot.child("q").getValue()).toString();
                 correctAnswer = Objects.requireNonNull(snapshot.child("a").getValue()).toString();
             }
 
@@ -205,20 +296,21 @@ public class ExamActivity extends AppCompatActivity {
                 Log.d("call", "No Calling");
             }
         });
+
     }
 
-    private void databaseRef() {
+    private void databaseRef(Integer question) {
         if (lang.equals("en")) {
             medium = "English";
-            myRef = database.getReference("mcq").child(medium).child(selectedSubject).child(selectedYear).child(questionNo.toString());
+            myRef = database.getReference("mcq").child(medium).child(selectedSubject).child(selectedYear).child((question).toString());
         } else {
             if (lang.equals("si")) {
                 medium = "Sinhala";
-                myRef = database.getReference("mcq").child(medium).child(selectedYear).child(selectedSubject).child(questionNo.toString());
+                myRef = database.getReference("mcq").child(medium).child(selectedYear).child(selectedSubject).child(question.toString());
             } else {
                 if (lang.equals("ta")) {
                     medium = "Tamil";
-                    myRef = database.getReference("mcq").child(medium).child(selectedYear).child(selectedSubject).child(questionNo.toString());
+                    myRef = database.getReference("mcq").child(medium).child(selectedYear).child(selectedSubject).child(question.toString());
                 }
             }
         }
@@ -231,10 +323,12 @@ public class ExamActivity extends AppCompatActivity {
             ref = database.getReference("mcq").child(medium).child(selectedYear).child(selectedSubject);
         }
         ref.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 totalQuestions = Math.toIntExact(snapshot.getChildrenCount());
+                doneQuestions.setText(answerTotalQuestion + "/" + (totalQuestions - 1));
                 Log.d("Size", String.valueOf(snapshot.getChildrenCount()));
 
             }
@@ -255,7 +349,7 @@ public class ExamActivity extends AppCompatActivity {
 
                 int min = (int) durationMillisecond / 60000;
 
-                moreTime=120-min;
+                moreTime = 120 - min;
 
                 int second = (int) durationMillisecond % 60000 / 1000;
                 String sTime;
@@ -275,9 +369,77 @@ public class ExamActivity extends AppCompatActivity {
             }
         }.start();
     }
+
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(),SelectPaperActivity.class));
+        startActivity(new Intent(getApplicationContext(), SelectPaperActivity.class));
         finish();
+    }
+
+    public void checkAnswer() {
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(getApplicationContext(), "Please select one answer", Toast.LENGTH_LONG).show();
+        } else {
+            int radioId = radioGroup.getCheckedRadioButtonId();
+            RadioButton radioButton = findViewById(radioId);
+            userAnswer = radioButton.getText();
+            //Toast.makeText(getApplicationContext(), userAnswer, Toast.LENGTH_SHORT).show();
+            if (userAnswer.equals(correctAnswer)) {
+                com.asaru.mcq.correctAnswer correctAnswerArray = new correctAnswer(questionNo, correctAnswer, questionUrl);
+                //correctQuestionNo.add(correctAnswerNo, questionNo);
+                // correctQuestionsUrl.add(correctAnswerNo, questionUrl);
+                correctQuestions.add(correctAnswerNo, correctAnswerArray);
+                // Toast.makeText(getApplicationContext(), correctAnswerArray.toString(), Toast.LENGTH_SHORT).show();
+                correctAnswerNo++;
+
+            } else {
+                wrongAnswer wrongAnswerArray = new wrongAnswer(questionNo, (String) userAnswer, correctAnswer, questionUrl);
+                //wrongQuestionNo.add(wrongAnswerNo, questionNo);
+                //wrongQuestionsUrl.add(wrongAnswerNo, questionUrl);
+                wrongQuestions.add(wrongAnswerNo, wrongAnswerArray);
+                //Toast.makeText(getApplicationContext(), wrongAnswerArray.toString(), Toast.LENGTH_SHORT).show();
+                wrongAnswerNo++;
+
+            }
+            questionNo++;
+            realQuestionNo++;
+            answerTotalQuestion++;
+            radioGroup.clearCheck();
+            updateQuestion(questionNo);
+
+        }
+    }
+
+    public void checkAnswerDoLater(int question) {
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(getApplicationContext(), "Please select one answer", Toast.LENGTH_LONG).show();
+        } else {
+            int radioId = radioGroup.getCheckedRadioButtonId();
+            RadioButton radioButton = findViewById(radioId);
+            userAnswer = radioButton.getText();
+            //Toast.makeText(getApplicationContext(), userAnswer, Toast.LENGTH_SHORT).show();
+            if (userAnswer.equals(correctAnswer)) {
+                com.asaru.mcq.correctAnswer correctAnswerArray = new correctAnswer(question, correctAnswer, questionUrl);
+                //correctQuestionNo.add(correctAnswerNo, questionNo);
+                // correctQuestionsUrl.add(correctAnswerNo, questionUrl);
+                correctQuestions.add(correctAnswerNo, correctAnswerArray);
+                // Toast.makeText(getApplicationContext(), correctAnswerArray.toString(), Toast.LENGTH_SHORT).show();
+                correctAnswerNo++;
+
+            } else {
+                wrongAnswer wrongAnswerArray = new wrongAnswer(question, (String) userAnswer, correctAnswer, questionUrl);
+                //wrongQuestionNo.add(wrongAnswerNo, questionNo);
+                //wrongQuestionsUrl.add(wrongAnswerNo, questionUrl);
+                wrongQuestions.add(wrongAnswerNo, wrongAnswerArray);
+                //Toast.makeText(getApplicationContext(), wrongAnswerArray.toString(), Toast.LENGTH_SHORT).show();
+                wrongAnswerNo++;
+
+            }
+            doLaterTotal--;
+
+            answerTotalQuestion++;
+            radioGroup.clearCheck();
+            updateQuestion(question);
+        }
     }
 }
