@@ -19,6 +19,11 @@
     <string name="next_step">முன்னோக்கி</string>
     <string name="back_step">வெளியேறு</string>
     <string name="exit">Exit</string>
+    <string name="warrning_examActivity1">உங்களிடம் இன்னும் கேள்விகள் உள்ளன </string>
+    <string name="warrning_examActivity2"> அதை செய்ய வேண்டுமா? </string>
+    <string name="warrning_examActivity3"> நீங்கள் அதை செய்ய விரும்பவில்லையா ? </string>
+    <string name="dialog_box_positive_button">ஆம்</string>
+    <string name="dialog_box_negative_button">இல்லை</string>
     <string-array name="Path_array">
         <item>அறிவியல் துறை</item>
         <item>மொழி பிரிவு</item>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/purple_700"
     android:orientation="vertical"
-    tools:context=".ExamActivity">
+    tools:context=".DoLaterQuestionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingEnd="8dp">
+                android:paddingEnd="8dp"
+                tools:ignore="RtlSymmetry">
 
 
 
@@ -92,7 +93,7 @@
                 android:layout_weight="1"
                 android:text="Question No"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -102,7 +103,7 @@
                 android:layout_weight="1"
                 android:text="Do Later"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -112,7 +113,7 @@
                 android:layout_weight="1"
                 android:text="Done"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
@@ -129,7 +130,7 @@
                 android:layout_weight="1"
                 android:text="21"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -140,7 +141,7 @@
                 android:layout_weight="1"
                 android:text="05"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -151,11 +152,11 @@
                 android:layout_weight="1"
                 android:text="15/50"
                 android:textColor="@color/black"
-                android:textSize="12sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
-           android:background="@color/white"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
@@ -167,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:text="2:00"
                 android:textColor="#FA0303"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
 
@@ -187,7 +188,7 @@
                     android:textStyle="bold"
                     android:id="@+id/question"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="300dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/white" />
                 <LinearLayout
@@ -276,6 +277,7 @@
                         android:weightSum="3">
 
                         <Button
+
                             android:id="@+id/back"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -286,6 +288,7 @@
                             android:textSize="18sp" />
 
                         <Button
+                            android:visibility="invisible"
                             android:id="@+id/later"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -298,6 +301,7 @@
                             android:textSize="18sp" />
 
                         <Button
+
                             android:id="@+id/next"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

@@ -1,12 +1,15 @@
 package com.asaru.mcq;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +27,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ExamActivity extends AppCompatActivity {
-
+String dialBoxNegative,dialBoxPositive,dialBoxFirst,dialBoxSecond,dialBoxThird;
     String selectedYear;
     String selectedSubject;
     String lang;
@@ -46,7 +50,8 @@ public class ExamActivity extends AppCompatActivity {
     Integer doLaterTotal = 0, answerTotalQuestion = 0, correctAnswerNo = 0, wrongAnswerNo = 0, doLaterEqual = 0;
     CharSequence userAnswer;
     RadioGroup radioGroup;
-    Integer totalQuestions, moreTime;
+    Integer totalQuestions;
+    private long moreTime;
     private CountDownTimer countDownTimer;
     private long durationMillisecond = 600000 * 12;
     private boolean timerRunning;
@@ -79,7 +84,8 @@ public class ExamActivity extends AppCompatActivity {
         time = findViewById(R.id.time);
         questionNumber = findViewById(R.id.questionNo);
         doneQuestions = findViewById(R.id.doneQuestion);
-
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared Preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         exit.setOnClickListener(v ->
         {
             startActivity(new Intent(getApplicationContext(), SelectPaperActivity.class));
@@ -107,113 +113,113 @@ public class ExamActivity extends AppCompatActivity {
 
                         Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
                         i.putExtra("time", moreTime);
-                        // i.putExtra("wrong", wrongAnswerNo);
-                        //i.putExtra("correct", correctAnswerNo);
-                        //i.putExtra("wrongAnswer", wrongQuestionNo);
-                        // i.putExtra("correctAnswer", correctQuestionNo);
-                        // i.putExtra("correctQuestionsUrl", correctQuestionsUrl);
-                        // i.putExtra("wrongQuestionsUrl", wrongQuestionsUrl);
-                        i.putParcelableArrayListExtra("correctAnswerArray", correctQuestions);
-                        i.putParcelableArrayListExtra("wrongAnswerArray", wrongQuestions);
+                        Log.d("time", String.valueOf(moreTime));
+
+                        dataSaveInSharedPref();
+
 
                         startActivity(i);
                         finish();
 
                     } else {
-                        doLater.setVisibility(View.INVISIBLE);
-                        if (doLaterTotal == 0) {
-                            countDownTimer.cancel();
-
-                            Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
-                            i.putExtra("time", moreTime);
-                            // i.putExtra("wrong", wrongAnswerNo);
-                            //i.putExtra("correct", correctAnswerNo);
-                            //i.putExtra("wrongAnswer", wrongQuestionNo);
-                            // i.putExtra("correctAnswer", correctQuestionNo);
-                            // i.putExtra("correctQuestionsUrl", correctQuestionsUrl);
-                            // i.putExtra("wrongQuestionsUrl", wrongQuestionsUrl);
-                            i.putParcelableArrayListExtra("correctAnswerArray", correctQuestions);
-                            i.putParcelableArrayListExtra("wrongAnswerArray", wrongQuestions);
-
-                            startActivity(i);
-                            finish();
-                        } else {
-                            realQuestionNo = doLaterQuestions.get(doLaterTotal - 1);
-                            Log.d("Do later", doLaterQuestions.get(doLaterTotal - 1).toString());
-                            doLaterEqual++;
-                            updateQuestion(doLaterQuestions.get(doLaterTotal - 1));
-                            checkAnswerDoLater(realQuestionNo);
+                        changeLanguage();
+                        new AlertDialog.Builder(ExamActivity.this)
+                                .setTitle("!")
+                                .setMessage(dialBoxFirst +" "+doLaterTotal+" "+ dialBoxSecond)
 
 
-                        }
+                                .setPositiveButton(dialBoxPositive, (dialog, which) -> dialogBoxDataShare(editor))
+
+
+                                .setNegativeButton(dialBoxNegative, (dialog, which) -> {
+
+                                   new AlertDialog.Builder(ExamActivity.this)
+                                            .setTitle("!")
+                                            .setMessage(dialBoxThird)
+
+
+                                            .setPositiveButton(dialBoxPositive, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                    Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                                                    i.putExtra("time", moreTime);
+                                                    Log.d("time", String.valueOf(moreTime));
+                                                    dataSaveInSharedPref();
+                                                    startActivity(i);
+                                                }
+                                            })
+
+
+                                            .setNegativeButton(dialBoxNegative, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialogBoxDataShare(editor);
+                                                }
+                                            })
+                                            .setIcon(android.R.drawable.ic_dialog_alert)
+                                            .show();
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+
 
 
                     }
+
+
 
                 } else {
                     checkAnswer();
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "Your time is over", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
+                i.putExtra("time", moreTime);
+                Log.d("time", String.valueOf(moreTime));
+
+                dataSaveInSharedPref();
+
+
+                startActivity(i);
+                finish();
             }
         });
         doLater.setOnClickListener(v -> {
             doLaterQuestions.add(doLaterTotal, questionNo);
-            //doLaterQuestion = new doLater(questionNo, correctAnswer, questionUrl);
-            //doLaterArray.add(doLaterTotal, doLaterQuestion);
+            doLaterQuestion = new doLater(questionNo, correctAnswer, questionUrl);
+            doLaterArray.add(doLaterTotal, doLaterQuestion);
             doLaterTotal++;
             questionNo++;
             realQuestionNo++;
             updateQuestion(questionNo);
+            radioGroup.clearCheck();
         });
         back.setOnClickListener(v -> {
-            if (questionNo.equals(totalQuestions)) {
-                if (doLaterEqual > 0) {
-                    if (doLaterTotal > 0) {
-                        if (correctQuestions.size() > 0) {
-                            if (correctQuestions.get(correctAnswerNo - 1).questionNo.equals(doLaterQuestions.get(doLaterTotal))) {
-                                correctQuestions.remove(correctAnswerNo - 1);
-                                correctAnswerNo = correctAnswerNo - 1;
-                            } else {
-                                if (wrongQuestions.get(wrongAnswerNo - 1).questionNo.equals(doLaterQuestions.get(doLaterTotal))) {
 
-                                    wrongQuestions.remove(wrongAnswerNo - 1);
-                                    wrongAnswerNo = wrongAnswerNo - 1;
-
-                                }
-                            }
-                            updateQuestion(doLaterQuestions.get(doLaterTotal));
-                        }
-                    }else {Toast.makeText(getApplicationContext(), "You cant go back ", Toast.LENGTH_LONG).show();}
-                } else {
-                    Toast.makeText(getApplicationContext(), "You cant go back ", Toast.LENGTH_LONG).show();
+            if (correctQuestions.size() > 0) {
+                if (correctQuestions.get(correctAnswerNo - 1).questionNo.equals(questionNo - 1)) {
+                    correctQuestions.remove(correctAnswerNo - 1);
+                    correctAnswerNo = correctAnswerNo - 1;
                 }
-
-
-            } else {
-                if (correctQuestions.size() > 0) {
-                    if (correctQuestions.get(correctAnswerNo - 1).questionNo.equals(questionNo - 1)) {
-                        correctQuestions.remove(correctAnswerNo - 1);
-                        correctAnswerNo = correctAnswerNo - 1;
-                    }
-                }
-                if (wrongQuestions.size() > 0) {
-                    if (wrongQuestions.get(wrongAnswerNo - 1).questionNo.equals(questionNo - 1)) {
-
-                        wrongQuestions.remove(wrongAnswerNo - 1);
-                        wrongAnswerNo = wrongAnswerNo - 1;
-                    }
-                }
-                if (doLaterTotal > 0) {
-                    if (doLaterQuestions.get(doLaterTotal - 1).equals(questionNo - 1)) {
-                        doLaterQuestions.remove(doLaterTotal - 1);
-                        doLaterTotal = doLaterTotal - 1;
-                    }
-                }
-                questionNo = questionNo - 1;
-
-                updateQuestion(questionNo);
             }
+            if (wrongQuestions.size() > 0) {
+                if (wrongQuestions.get(wrongAnswerNo - 1).questionNo.equals(questionNo - 1)) {
+
+                    wrongQuestions.remove(wrongAnswerNo - 1);
+                    wrongAnswerNo = wrongAnswerNo - 1;
+                }
+            }
+            if (doLaterTotal > 0) {
+                if (doLaterQuestions.get(doLaterTotal - 1).equals(questionNo - 1)) {
+                    doLaterQuestions.remove(doLaterTotal - 1);
+                    doLaterTotal = doLaterTotal - 1;
+                }
+            }
+            questionNo = questionNo - 1;
+
+            updateQuestion(questionNo);
 
 
         });
@@ -221,13 +227,14 @@ public class ExamActivity extends AppCompatActivity {
             if (questionNo.equals(totalQuestions)) {
 
                 Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
-                /*i.putExtra("time", moreTime);
-                i.putExtra("wrong", wrongAnswerNo);
-                i.putExtra("correct", correctAnswerNo);
-                i.putExtra("wrongAnswer", wrongQuestionNo);
-                i.putExtra("correctAnswer", correctQuestionNo);*/
-                i.putExtra("correctAnswerArray", (Parcelable) correctQuestions);
-                i.putExtra("wrongAnswerArray", (Parcelable) wrongQuestions);
+                Gson gson = new Gson();
+                String correct = gson.toJson(correctQuestions);
+                String wrong = gson.toJson(wrongQuestions);
+                editor.putString("correctAnswerArray", correct);
+                editor.putString("wrongAnswerArray", wrong);
+                Log.d("Language1", correct);
+                Log.d("Language2", wrong);
+                editor.apply();
 
 
                 startActivity(i);
@@ -240,13 +247,14 @@ public class ExamActivity extends AppCompatActivity {
             }
             if (questionNo > 2) {
                 Intent i = new Intent(getApplicationContext(), ExamFinishActivity.class);
-                /*i.putExtra("time", moreTime);
-                i.putExtra("wrong", wrongAnswerNo);
-                i.putExtra("correct", correctAnswerNo);
-                i.putExtra("wrongAnswer", wrongQuestionNo);
-                i.putExtra("correctAnswer", correctQuestionNo);*/
-                i.putExtra("correctAnswerArray", (Parcelable) correctQuestions);
-                i.putExtra("wrongAnswerArray", (Parcelable) wrongQuestions);
+                Gson gson = new Gson();
+                String correct = gson.toJson(correctQuestions);
+                String wrong = gson.toJson(wrongQuestions);
+                editor.putString("correctAnswerArray", correct);
+                editor.putString("wrongAnswerArray", wrong);
+                Log.d("Language1", correct);
+                Log.d("Language2", wrong);
+                editor.apply();
 
 
                 startActivity(i);
@@ -254,6 +262,34 @@ public class ExamActivity extends AppCompatActivity {
 
             }
         });
+    }
+private void dialogBoxDataShare(SharedPreferences.Editor editor){
+    dataSaveInSharedPref();
+    Gson gson = new Gson();
+    String doLater = gson.toJson(doLaterArray);
+    editor.putString("doLaterArray", doLater);
+    editor.apply();
+    Intent i = new Intent(getApplicationContext(), DoLaterQuestionActivity.class);
+    i.putExtra("year", selectedYear);
+    i.putExtra("subject", selectedSubject);
+    i.putExtra("time", moreTime);
+    i.putExtra("wrong Answers", wrongAnswerNo);
+    i.putExtra("correct answers", correctAnswerNo);
+    i.putExtra("do later total", doLaterTotal);
+    startActivity(i);
+    finish();
+}
+    private void dataSaveInSharedPref() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("shared Preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String correct = gson.toJson(correctQuestions);
+        String wrong = gson.toJson(wrongQuestions);
+        editor.putString("correctAnswerArray", correct);
+        editor.putString("wrongAnswerArray", wrong);
+        Log.d("Language1", correct);
+        Log.d("Language2", wrong);
+        editor.apply();
     }
 
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
@@ -349,7 +385,7 @@ public class ExamActivity extends AppCompatActivity {
 
                 int min = (int) durationMillisecond / 60000;
 
-                moreTime = 120 - min;
+                moreTime = durationMillisecond;
 
                 int second = (int) durationMillisecond % 60000 / 1000;
                 String sTime;
@@ -409,37 +445,19 @@ public class ExamActivity extends AppCompatActivity {
 
         }
     }
+public void changeLanguage(){
+    Context context;
+    Resources resources;
+    SharedPreferences language = getApplicationContext().getSharedPreferences("language", 0);
+    lang = language.getString("Language", "");
+    context = ChangeLanguage.setLocale(ExamActivity.this, lang);
+    resources = context.getResources();
+    dialBoxNegative= (String) resources.getText(R.string.dialog_box_negative_button);
+            dialBoxPositive= (String) resources.getText(R.string.dialog_box_positive_button);
+        dialBoxFirst= (String) resources.getText(R.string.warrning_examActivity1);
+        dialBoxSecond= (String) resources.getText(R.string.warrning_examActivity2);
+    dialBoxThird= (String) resources.getText(R.string.warrning_examActivity3);
 
-    public void checkAnswerDoLater(int question) {
-        if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(getApplicationContext(), "Please select one answer", Toast.LENGTH_LONG).show();
-        } else {
-            int radioId = radioGroup.getCheckedRadioButtonId();
-            RadioButton radioButton = findViewById(radioId);
-            userAnswer = radioButton.getText();
-            //Toast.makeText(getApplicationContext(), userAnswer, Toast.LENGTH_SHORT).show();
-            if (userAnswer.equals(correctAnswer)) {
-                com.asaru.mcq.correctAnswer correctAnswerArray = new correctAnswer(question, correctAnswer, questionUrl);
-                //correctQuestionNo.add(correctAnswerNo, questionNo);
-                // correctQuestionsUrl.add(correctAnswerNo, questionUrl);
-                correctQuestions.add(correctAnswerNo, correctAnswerArray);
-                // Toast.makeText(getApplicationContext(), correctAnswerArray.toString(), Toast.LENGTH_SHORT).show();
-                correctAnswerNo++;
+}
 
-            } else {
-                wrongAnswer wrongAnswerArray = new wrongAnswer(question, (String) userAnswer, correctAnswer, questionUrl);
-                //wrongQuestionNo.add(wrongAnswerNo, questionNo);
-                //wrongQuestionsUrl.add(wrongAnswerNo, questionUrl);
-                wrongQuestions.add(wrongAnswerNo, wrongAnswerArray);
-                //Toast.makeText(getApplicationContext(), wrongAnswerArray.toString(), Toast.LENGTH_SHORT).show();
-                wrongAnswerNo++;
-
-            }
-            doLaterTotal--;
-
-            answerTotalQuestion++;
-            radioGroup.clearCheck();
-            updateQuestion(question);
-        }
-    }
 }

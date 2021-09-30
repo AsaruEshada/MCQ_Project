@@ -19,6 +19,11 @@
     <string name="next_step">ඉදිරියට</string>
     <string name="back_step">ඉවත්වන්න </string>
     <string name="exit">Exit</string>
+    <string name="warrning_examActivity1">ඔබට තව ප්‍රශ්න </string>
+    <string name="warrning_examActivity2"> ඉතිරිව ඇත.එය කිරීමට අවශ්‍යද ? </string>
+    <string name="warrning_examActivity3"> ඔබට එය කිරීමට අවශ්‍ය නැද්ද ? </string>
+    <string name="dialog_box_positive_button">ඔව්</string>
+    <string name="dialog_box_negative_button">නැත</string>
     <string-array name="Path_array">
         <item>විද්‍යා අංශය</item>
         <item>භාෂා අංශය</item>

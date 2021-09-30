@@ -19,6 +19,11 @@
     <string name="next_step">Go</string>
     <string name="back_step">Back</string>
     <string name="exit">Exit</string>
+    <string name="warrning_examActivity1">You have More </string>
+    <string name="warrning_examActivity2"> questions.Do you want to do that?? </string>
+    <string name="warrning_examActivity3"> Do you do not want to do that?? </string>
+    <string name="dialog_box_positive_button">Yes</string>
+    <string name="dialog_box_negative_button">No</string>
     <string-array name="Path_array">
         <item>Math &amp; Bio</item>
         <item>Language</item>

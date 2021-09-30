@@ -10,6 +10,9 @@ public class correctAnswer implements Parcelable {
     String answer;
     String questionImage;
 
+    public correctAnswer() {
+    }
+
     public correctAnswer(Integer questionNo, String answer, String questionImage) {
         this.questionNo = questionNo;
         this.answer = answer;
